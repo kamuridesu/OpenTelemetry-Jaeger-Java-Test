@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+./kamuri-rest-test/opentelemetry-javaagent.jar
