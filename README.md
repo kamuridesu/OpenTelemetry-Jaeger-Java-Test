@@ -1,4 +1,5 @@
-# OpenTelemetry-Jaeger-Test
+#  OpenTelemetry-Jaeger-Java-Test
+
 Collectiong traces from Java applications using OpenTelemetry and Jaeger.
 
 ## How to use
