@@ -3,13 +3,15 @@ package com.kamuri.kamuriresttest.controller;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.mockito.InjectMocks;
-import org.springframework.http.ResponseEntity;
 
 import com.kamuri.kamuriresttest.exceptions.TestException;
+import com.kamuri.kamuriresttest.model.HelloWorld;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -20,14 +22,14 @@ public class HelloControllerTest {
 
     @Test
     public void mustReturn200() {
-        ResponseEntity<String> response = helloController.index();
-        Assertions.assertTrue(response.getStatusCodeValue() == 200);
+        Map<String, String> response = helloController.index();
+        Assertions.assertTrue(response.containsKey("message"));
     }
 
     @Test
     public void mustReturnHelloWorld() {
-        ResponseEntity<String> response = helloController.index();
-        Assertions.assertTrue(response.getBody() == "{\"message\": \"Hello World\"}");
+        Map<String, String> response = helloController.index();
+        Assertions.assertEquals(response, HelloWorld.getHelloWorld());
     }
 
     @Test
