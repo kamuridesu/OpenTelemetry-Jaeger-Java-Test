@@ -13,5 +13,5 @@ public class RestTestClientMock implements RestTestClient {
     public MessageDTO getException() {
         return new MessageDTO();
     }
-    
+
 }

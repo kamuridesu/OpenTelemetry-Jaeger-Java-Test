@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kamuri.connection.model.dto.MessageDTO;
 
-@FeignClient(value="client", url="${kamurest.url}")
+@FeignClient(value = "client", url = "${kamurest.url}")
 public interface RestTestClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
@@ -14,5 +14,5 @@ public interface RestTestClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/exception")
     MessageDTO getException();
-    
+
 }

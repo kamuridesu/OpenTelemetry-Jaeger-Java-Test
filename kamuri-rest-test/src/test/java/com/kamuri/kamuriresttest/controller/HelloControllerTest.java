@@ -43,5 +43,5 @@ public class HelloControllerTest {
 
         Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
-    
+
 }

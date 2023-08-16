@@ -8,5 +8,5 @@ import lombok.Setter;
 public class MessageDTO {
 
     private String message = "";
-    
+
 }

@@ -30,9 +30,16 @@ services:
       - 14269:14269
       - 9411:9411
     environment:
-      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
-      # - COLLECTOR_OTLP_ENABLED=true
+      - METRICS_STORAGE_TYPE=prometheus
+      - PROMETHEUS_SERVER_URL=http://prometheus:9090
+      - LOG_LEVEL=debug
+      - PROMETHEUS_QUERY_SUPPORT_SPANMETRICS_CONNECTOR=${PROMETHEUS_QUERY_SUPPORT_SPANMETRICS_CONNECTOR}
+      - PROMETHEUS_QUERY_NAMESPACE=${PROMETHEUS_QUERY_NAMESPACE}
+      - PROMETHEUS_QUERY_DURATION_UNIT=${PROMETHEUS_QUERY_DURATION_UNIT}
+    volumes:
+      -  "./jaeger-ui.json:/etc/jaeger/jaeger-ui.json"
     container_name: jaeger
+    command: --query.ui-config /etc/jaeger/jaeger-ui.json
 
   kamuri-rest-test:
     container_name: kamuri-rest-test

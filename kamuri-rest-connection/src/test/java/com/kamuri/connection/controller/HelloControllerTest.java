@@ -21,7 +21,7 @@ public class HelloControllerTest {
     private final RestTestClientMock restTestClientMock = new RestTestClientMock();
 
     private HelloController helloController;
-    
+
     @BeforeEach
     public void setUp() {
         this.helloController = new HelloController(restTestClientMock);
@@ -38,5 +38,5 @@ public class HelloControllerTest {
         ResponseEntity<String> response = helloController.index();
         Assertions.assertEquals("{\"receivedMessage\": \"Hello World\"}", response.getBody());
     }
-    
+
 }

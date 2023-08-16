@@ -25,8 +25,8 @@ public class HelloController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
         return ResponseEntity.ok()
-            .headers(headers)
-            .body("{\"receivedMessage\": \"" + message.getMessage() + "\"}");
+                .headers(headers)
+                .body("{\"receivedMessage\": \"" + message.getMessage() + "\"}");
     }
 
     @GetMapping("/exception")
@@ -35,8 +35,8 @@ public class HelloController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
         return ResponseEntity.ok()
-            .headers(headers)
-            .body("{\"receivedMessage\": \"" + message.getMessage() + "\"}");
+                .headers(headers)
+                .body("{\"receivedMessage\": \"" + message.getMessage() + "\"}");
     }
 
 }

@@ -18,6 +18,8 @@ exporters:
     endpoint: http://jaeger:14250
     tls:
       insecure: true
+  prometheus:
+    endpoint: "0.0.0.0:8889"
   file:
     path: /logs/app.log
     rotation:
@@ -25,13 +27,19 @@ exporters:
 extensions:
   health_check:
 
+connectors:
+  spanmetrics:
+
 service:
   extensions: [health_check]
   pipelines:
     traces:
       receivers: [jaeger, otlp]
       processors: [batch]
-      exporters: [jaeger]
+      exporters: [jaeger, spanmetrics]
+    metrics/spanmetrics:
+      receivers: [spanmetrics]
+      exporters: [prometheus]
     logs:
       receivers: [otlp]
       processors: [batch]
