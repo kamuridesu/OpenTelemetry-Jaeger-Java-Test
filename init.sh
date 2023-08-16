@@ -1,5 +1,7 @@
+OPENTELEMETRY_AGENT_LATEST="https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar"
+
 if [ ! -f ./kamuri-rest-test/opentelemetry-javaagent.jar ]; then
-    curl --output ./kamuri-rest-test/opentelemetry-javaagent.jar -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
+    curl --output ./kamuri-rest-test/opentelemetry-javaagent.jar -L $OPENTELEMETRY_AGENT_LATEST
 fi
 
 if [ ! -f ./kamuri-rest-connection/opentelemetry-javaagent.jar ]; then
