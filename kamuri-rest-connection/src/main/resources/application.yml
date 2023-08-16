@@ -1,0 +1,27 @@
+
+spring:
+  profiles:
+    active: dev
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 60000
+
+---
+spring:
+  profiles: prod
+  main:
+    allow-bean-definition-overriding: true
+kamurest:
+  url: ${APPLICATION_URL}
+
+---
+spring:
+  profiles: dev
+  main:
+    allow-bean-definition-overriding: true
+kamurest:
+  url: ${APPLICATION_URL}

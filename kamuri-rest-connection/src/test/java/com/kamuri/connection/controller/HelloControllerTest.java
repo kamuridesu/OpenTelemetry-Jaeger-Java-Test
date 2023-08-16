@@ -1,22 +1,31 @@
 
-package com.kamuri.kamuriresttest.controller;
+package com.kamuri.connection.controller;
 
 import org.junit.jupiter.api.Test;
-
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.mockito.InjectMocks;
 import org.springframework.http.ResponseEntity;
 
-import com.kamuri.kamuriresttest.exceptions.TestException;
+import com.kamuri.connection.client.RestTestClientMock;
+
+import lombok.RequiredArgsConstructor;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
+@RequiredArgsConstructor
 public class HelloControllerTest {
-    @InjectMocks
+
+    private final RestTestClientMock restTestClientMock = new RestTestClientMock();
+
     private HelloController helloController;
+    
+    @BeforeEach
+    public void setUp() {
+        this.helloController = new HelloController(restTestClientMock);
+    }
 
     @Test
     public void mustReturn200() {
@@ -27,19 +36,7 @@ public class HelloControllerTest {
     @Test
     public void mustReturnHelloWorld() {
         ResponseEntity<String> response = helloController.index();
-        Assertions.assertTrue(response.getBody() == "{\"message\": \"Hello World\"}");
-    }
-
-    @Test
-    public void mustThrowException() {
-        Exception exception = Assertions.assertThrows(TestException.class, () -> {
-            helloController.exception();
-        });
-
-        String expectedMessage = "Test Exception";
-        String actualMessage = exception.getMessage();
-
-        Assertions.assertTrue(actualMessage.contains(expectedMessage));
+        Assertions.assertEquals("{\"receivedMessage\": \"Hello World\"}", response.getBody());
     }
     
 }

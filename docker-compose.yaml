@@ -1,19 +1,21 @@
 version: '3'
 services:
   jaeger:
-    image: jaegertracing/all-in-one:1.32
+    image: jaegertracing/all-in-one:1.47
     ports:
-      - 5775:5775/udp
       - 6831:6831/udp
       - 6832:6832/udp
       - 5778:5778
       - 16686:16686
+      - 4317:4317
+      - 4318:4318
       - 14250:14250
       - 14268:14268
       - 14269:14269
       - 9411:9411
     environment:
       - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - COLLECTOR_OTLP_ENABLED=true
     container_name: jaeger
 
   kamuri-rest-test:
@@ -25,3 +27,15 @@ services:
         SERVICE_NAME: kamuri-rest-test
     ports:
       - 8080:8080
+
+  kamuri-rest-connection:
+    build:
+      context: ./kamuri-rest-connection
+      args:
+        JAEGER_ENDPOINT: http://jaeger:14250
+        ARG_JAVA_APP_DIR: /usr/local/my_app
+        SERVICE_NAME: kamuri-rest-connection
+    environment:
+      APPLICATION_URL: http://kamuri-rest-test:8080
+    ports:
+      - 8081:8080
