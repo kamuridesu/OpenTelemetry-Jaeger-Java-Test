@@ -1,0 +1,46 @@
+receivers:
+  otlp: # the OTLP receiver the app is sending traces to
+    protocols:
+      grpc:
+      http:
+  jaeger:
+    protocols:
+      grpc:
+      thrift_binary:
+      thrift_compact:
+      thrift_http:
+
+processors:
+  batch:
+
+exporters:
+  jaeger: # the Jaeger exporter, to ingest traces to backend
+    endpoint: http://jaeger:14250
+    tls:
+      insecure: true
+  file:
+    path: /logs/app.log
+    rotation:
+
+extensions:
+  health_check:
+
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [jaeger, otlp]
+      processors: [batch]
+      exporters: [jaeger]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [file]
+  telemetry:
+    logs:
+      level: debug
+      initial_fields:
+        service: my-instance
+    metrics:
+      level: detailed
+      address: 0.0.0.0:8888
